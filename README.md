@@ -9,7 +9,7 @@ Statos is a pure Javascript and (possibly) WebGL implementation of the basic Str
 
 Use your arrow keys to slam your fortress into your enemies. The fortress that survives the attacks wins. You can add defenses and weapons to your fortress as you level up.
 
-You may augment your fortress with engines, spikes, cannons, and walls. Each device takes a certain amount of room on your fortress and when you've run out of room you can no longer add devices.
+You may augment your fortress with engines, spikes, cannons, and walls. Each device takes a certain amount of room on your fortress and when you've run out of room you can no longer add devices. Cannons have a range and angle of attack, this is displayed by a lined box which represents the area that a volley of fire can land. Firing is controlled by the Spacebar key.
 
 Destroying or damaging an enemy fortress by running into it or hitting it with your cannons will release pieces of the fortress that you can pick up by flying over. The pieces will gravitate toward the nearest fortress. 
 
