@@ -13,7 +13,7 @@ You may augment your fortress with engines, spikes, cannons, and walls. Each dev
 
 Destroying or damaging an enemy fortress by running into it or hitting it with your cannons will release pieces of the fortress that you can pick up by flying over. The pieces will gravitate toward the nearest fortress. 
 
-After all enemies are destroyed the player will have the chance to add sections to their fortress by using pieces gathered from other fortresses. Pieces can also be traded as cash in order to purchase devices.
+After all enemies are destroyed, the player will have the chance to add sections to their fortress by using pieces gathered from other fortresses. Pieces can also be traded as cash in order to purchase devices.
 
 **TODO**
 
