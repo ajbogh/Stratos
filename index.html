@@ -191,14 +191,58 @@
 
 			}
 
+var lastMovement = "";
+var moveSpeed = 0;
 			function render() {
 				//allows the camera to move when  the mouse moves
 				camera.position.x += ( mouseX - camera.position.x ) * 0.05;
 				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
 				camera.lookAt( scene.position );
 				
-				controls.update(1);
-
+				if(controls.moveForward){
+					console.log("forward - "+moveSpeed+" - "+lastMovement);
+					if(moveSpeed > 0 && lastMovement == "backward"){
+						//slow down reverse and attempt to move forward
+						moveSpeed-=0.01;
+						controls.moveBackward = true;
+					}else{
+						if(moveSpeed < 1){
+							moveSpeed+=0.01;
+						}
+						lastMovement = "forward";
+						controls.moveForward = true;
+					}
+				}else if(controls.moveBackward){
+					console.log("back - "+moveSpeed+" - "+lastMovement);
+					if(moveSpeed > 0 && lastMovement == "forward"){
+						//slow down reverse and attempt to move backward
+						moveSpeed-=0.01;
+						controls.moveForward = true;
+					}else{
+						if(moveSpeed < 1){
+							moveSpeed+=0.01;
+						}
+						lastMovement = "backward";
+						controls.moveBackward = true;
+					}
+				}else if(moveSpeed > 0){ //slowdown
+					console.log("slow "+moveSpeed);
+					/*currentForward = controls.moveForward;
+					currentBackward = controls.moveBackward;
+					currentLeft = controls.moveLeft;
+					currentRight = controls.moveRight;
+					if(lastMovement == "forward") controls.moveForward = true;*/
+					/*if(lastMovement == "backward") controls.moveBackward = true;
+					if(lastMovement == "left") controls.moveLeft = true;
+					if(lastMovement == "right") controls.moveRight = true;*/
+					moveSpeed-=0.025;
+					/*controls.moveForward = currentForward;
+					controls.moveBackward = currentBackward;
+					controls.moveLeft = currentLeft;
+					controls.moveRight = currentRight;*/
+				}
+				
+				controls.update(moveSpeed);
 				renderer.render( scene, camera );
 
 			}
@@ -230,7 +274,6 @@
 				controls = new THREE.FirstPersonControls(player);
   				controls.movementSpeed = 10000;
   				controls.activeLook = false;
-  				//controls.autoForward = true;
   				controls.autoSpeedFactor = 2.0;
   				controls.movementSpeed = 10;
   				return player;
