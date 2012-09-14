@@ -191,7 +191,8 @@
 
 			}
 
-var lastMovement = "";
+var lastVertical = "";
+var lastHorizontal = "";
 var moveSpeed = 0;
 			function render() {
 				//allows the camera to move when  the mouse moves
@@ -199,52 +200,84 @@ var moveSpeed = 0;
 				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
 				camera.lookAt( scene.position );
 				
+				var savedControlState = {
+					"forward":controls.moveForward,
+					"backward":controls.moveBackward,
+					"left":controls.moveLeft,
+					"right":contrls.moveRight
+				};
+				
 				if(controls.moveForward){
-					console.log("forward - "+moveSpeed+" - "+lastMovement);
-					if(moveSpeed > 0 && lastMovement == "backward"){
+					console.log("forward - "+moveSpeed+" - "+lastVertical);
+					if(moveSpeed > 0 && lastVertical == "backward"){
 						//slow down reverse and attempt to move forward
 						moveSpeed-=0.01;
-						controls.moveBackward = true;
+						//controls.moveBackward = true;
 					}else{
 						if(moveSpeed < 1){
 							moveSpeed+=0.01;
 						}
-						lastMovement = "forward";
+						lastVertical = "forward";
 						controls.moveForward = true;
 					}
+					controls.update(moveSpeed);
 				}else if(controls.moveBackward){
-					console.log("back - "+moveSpeed+" - "+lastMovement);
-					if(moveSpeed > 0 && lastMovement == "forward"){
+					console.log("back - "+moveSpeed+" - "+lastVertical);
+					if(moveSpeed > 0 && lastVertical == "forward"){
 						//slow down reverse and attempt to move backward
 						moveSpeed-=0.01;
-						controls.moveForward = true;
+						//controls.moveForward = true;
+						console.log("slowing forward");
 					}else{
 						if(moveSpeed < 1){
 							moveSpeed+=0.01;
 						}
-						lastMovement = "backward";
+						lastVertical = "backward";
 						controls.moveBackward = true;
 					}
+					controls.update(moveSpeed);
 				}else if(moveSpeed > 0){ //slowdown
-					console.log("slow "+moveSpeed);
-					/*currentForward = controls.moveForward;
-					currentBackward = controls.moveBackward;
-					currentLeft = controls.moveLeft;
-					currentRight = controls.moveRight;
-					if(lastMovement == "forward") controls.moveForward = true;*/
-					/*if(lastMovement == "backward") controls.moveBackward = true;
-					if(lastMovement == "left") controls.moveLeft = true;
-					if(lastMovement == "right") controls.moveRight = true;*/
+					console.log("slow "+moveSpeed+"-"+lastMovement);
+					controls = switchMovement(controls,lastMovement);
+
 					moveSpeed-=0.025;
-					/*controls.moveForward = currentForward;
-					controls.moveBackward = currentBackward;
-					controls.moveLeft = currentLeft;
-					controls.moveRight = currentRight;*/
+					controls.update(moveSpeed);
+					controls = resetControlState(controls,savedControlState);
 				}
 				
-				controls.update(moveSpeed);
+				
 				renderer.render( scene, camera );
 
+			}
+			
+			function resetControlState(controlsObj, stateObj){
+				controlsObj.moveForward = stateObj.forward;
+				controlsObj.moveBackwrd = stateObj.backward;
+				controlsObj.moveLeft = stateObj.left;
+				controlsObj.moveRight = stateObj.right;
+				return controlsObj;
+			}
+			
+			function switchMovement(controlsObj, moveString){
+				switch(moveString){
+					case "forward":
+						controlsObj.moveForward = true;
+						controlsObj.moveBackward = false;
+						break;
+					case "backward":
+						controlsObj.moveBackward = true;
+						controlsObj.moveForward = false;
+						break;
+					case "left":
+						controlsObj.moveLeft = true;
+						controlsObj.moveRight = false;
+						break;
+					case "right":
+						controlsObj.moveRight = true;
+						controlsObj.moveLeft = false;
+						break;
+				}
+				return controls;
 			}
 			
 			function getWorld(){
@@ -274,7 +307,7 @@ var moveSpeed = 0;
 				controls = new THREE.FirstPersonControls(player);
   				controls.movementSpeed = 10000;
   				controls.activeLook = false;
-  				controls.autoSpeedFactor = 2.0;
+  				//controls.autoSpeedFactor = 2.0;
   				controls.movementSpeed = 10;
   				return player;
 			}
