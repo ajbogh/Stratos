@@ -17,7 +17,7 @@
 		<script src="js/three.min.js"></script>
 		<script src="js/ImprovedNoise.js"></script>
 		<script src="js/Stats.js"></script>
-		<script src="js/FirstPersonControls.js"></script>
+		<script src="js/SmoothControls.js"></script>
 		<script src="js/Detector.js"></script>
 		<script>
 
@@ -29,7 +29,7 @@
 			}
 							
 			var camera, scene, renderer;
-			var geometry, material, player, world, light;
+			var geometry, material, player, world, light, controls;
 			var speed = 0;
 			
 			var container, stats;
@@ -191,8 +191,7 @@
 
 			}
 
-var lastVertical = "";
-var lastHorizontal = "";
+var lastMovement = "";
 var moveSpeed = 0;
 			function render() {
 				//allows the camera to move when  the mouse moves
@@ -204,12 +203,14 @@ var moveSpeed = 0;
 					"forward":controls.moveForward,
 					"backward":controls.moveBackward,
 					"left":controls.moveLeft,
-					"right":contrls.moveRight
+					"right":controls.moveRight
 				};
 				
-				if(controls.moveForward){
-					console.log("forward - "+moveSpeed+" - "+lastVertical);
-					if(moveSpeed > 0 && lastVertical == "backward"){
+				controls.update(1);
+				
+				/*if(controls.moveForward){
+					console.log("forward - "+moveSpeed+" - "+lastMovement);
+					if(moveSpeed > 0 && lastMovement == "backward"){
 						//slow down reverse and attempt to move forward
 						moveSpeed-=0.01;
 						//controls.moveBackward = true;
@@ -217,13 +218,13 @@ var moveSpeed = 0;
 						if(moveSpeed < 1){
 							moveSpeed+=0.01;
 						}
-						lastVertical = "forward";
+						lastMovement = "forward";
 						controls.moveForward = true;
 					}
-					controls.update(moveSpeed);
+					
 				}else if(controls.moveBackward){
-					console.log("back - "+moveSpeed+" - "+lastVertical);
-					if(moveSpeed > 0 && lastVertical == "forward"){
+					console.log("back - "+moveSpeed+" - "+lastMovement);
+					if(moveSpeed > 0 && lastMovement == "forward"){
 						//slow down reverse and attempt to move backward
 						moveSpeed-=0.01;
 						//controls.moveForward = true;
@@ -232,7 +233,7 @@ var moveSpeed = 0;
 						if(moveSpeed < 1){
 							moveSpeed+=0.01;
 						}
-						lastVertical = "backward";
+						lastMovement = "backward";
 						controls.moveBackward = true;
 					}
 					controls.update(moveSpeed);
@@ -240,10 +241,10 @@ var moveSpeed = 0;
 					console.log("slow "+moveSpeed+"-"+lastMovement);
 					controls = switchMovement(controls,lastMovement);
 
-					moveSpeed-=0.025;
+					moveSpeed-=0.1;
 					controls.update(moveSpeed);
 					controls = resetControlState(controls,savedControlState);
-				}
+				}*/
 				
 				
 				renderer.render( scene, camera );
@@ -263,18 +264,26 @@ var moveSpeed = 0;
 					case "forward":
 						controlsObj.moveForward = true;
 						controlsObj.moveBackward = false;
+						controlsObj.moveRight = false;
+						controlsObj.moveLeft = false;
 						break;
 					case "backward":
 						controlsObj.moveBackward = true;
 						controlsObj.moveForward = false;
+						controlsObj.moveRight = false;
+						controlsObj.moveLeft = false;
 						break;
 					case "left":
 						controlsObj.moveLeft = true;
 						controlsObj.moveRight = false;
+						controlsObj.moveForward = false;
+						controlsObj.moveBackward = false;
 						break;
 					case "right":
 						controlsObj.moveRight = true;
 						controlsObj.moveLeft = false;
+						controlsObj.moveForward = false;
+						controlsObj.moveBackward = false;
 						break;
 				}
 				return controls;
@@ -304,11 +313,7 @@ var moveSpeed = 0;
 				
 				player = new THREE.Mesh( geometry, material );
 				player.add(camera);
-				controls = new THREE.FirstPersonControls(player);
-  				controls.movementSpeed = 10000;
-  				controls.activeLook = false;
-  				//controls.autoSpeedFactor = 2.0;
-  				controls.movementSpeed = 10;
+				controls = new THREE.SmoothControls(player);
   				return player;
 			}
 
