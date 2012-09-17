@@ -86,11 +86,11 @@ THREE.SmoothControls = function ( object, domElement ) {
 		//delta represents an interval, usually 1.
 		//max speed is equivalent for all objects
 		if(typeof this.keyArrayMap["key_38"] != "undefined" && this.keyArrayMap["key_38"] === true){
-			//increase Y velocity
+			//increase Z velocity
 			this.velocityZ -= 0.1;
 		}
 		if(typeof this.keyArrayMap["key_40"] != "undefined" && this.keyArrayMap["key_40"] === true){
-			//decrease Y velocity
+			//decrease Z velocity
 			this.velocityZ += 0.1;
 		}
 		if(typeof this.keyArrayMap["key_37"] != "undefined" && this.keyArrayMap["key_37"] === true){
@@ -102,13 +102,31 @@ THREE.SmoothControls = function ( object, domElement ) {
 			this.velocityX += 0.1;
 		}
 		if(typeof this.keyArrayMap["key_82"] != "undefined" && this.keyArrayMap["key_82"] === true){
-			//increase Z velocity
+			//increase Y velocity
 			this.velocityY += 0.1;
 		}
 		if(typeof this.keyArrayMap["key_70"] != "undefined" && this.keyArrayMap["key_70"] === true){
-			//decrease Z velocity
+			//decrease Y velocity
 			this.velocityY -= 0.1;
 		}
+		//handle no motion cases
+		if( (typeof this.keyArrayMap["key_38"] == "undefined" || this.keyArrayMap["key_38"] === false) 
+			&& (typeof this.keyArrayMap["key_40"] == "undefined" || this.keyArrayMap["key_40"] === false) ){
+			if(this.velocityZ > 0) this.velocityZ -= 0.1;
+			else if(this.velocityZ < 0) this.velocityZ += 0.1;
+		}
+		if( (typeof this.keyArrayMap["key_37"] == "undefined" || this.keyArrayMap["key_37"] === false) 
+			&& (typeof this.keyArrayMap["key_39"] == "undefined" || this.keyArrayMap["key_39"] === false) ){
+			if(this.velocityX > 0) this.velocityX -= 0.1;
+			else if(this.velocityX < 0) this.velocityX += 0.1;
+		}
+		if( (typeof this.keyArrayMap["key_82"] == "undefined" || this.keyArrayMap["key_82"] === false) 
+			&& (typeof this.keyArrayMap["key_70"] == "undefined" || this.keyArrayMap["key_70"] === false) ){
+			if(this.velocityY > 0) this.velocityY -= 0.1;
+			else if(this.velocityY < 0) this.velocityY += 0.1;
+		}
+			
+		
 		
 		this.object.translateX( this.velocityX );
 		this.object.translateY( this.velocityY );
