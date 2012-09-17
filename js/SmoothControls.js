@@ -4,6 +4,7 @@
 
 THREE.SmoothControls = function ( object, domElement ) {
 	this.object = object; //The object which should be controlled
+	this.target = new THREE.Vector3( 0, 0, 0 );
 	
 	this.domElement = ( domElement !== undefined ) ? domElement : document;
 	
@@ -47,6 +48,7 @@ THREE.SmoothControls = function ( object, domElement ) {
 			case 70: /*F*/ 
 
 			case 81: /*Q*/ this.keyArrayMap["key_"+event.keyCode] = true;
+		}
 	};
 	this.onKeyUp = function ( event ) {
 		switch ( event.keyCode ) {
@@ -107,6 +109,19 @@ THREE.SmoothControls = function ( object, domElement ) {
 			//decrease Z velocity
 			this.velocityZ -= 0.1;
 		}
+		
+		this.object.translateX( this.velocityX );
+		this.object.translateY( this.velocityY );
+		this.object.translateZ( this.velocityZ );
+		
+		var targetPosition = this.target,
+			position = this.object.position;
+			
+		targetPosition.x = position.x;
+		targetPosition.y = position.y + 100;
+		targetPosition.z = position.z;
+		
+		//this.object.lookAt( targetPosition );
 	}
 	
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
