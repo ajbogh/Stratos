@@ -127,19 +127,20 @@ THREE.SmoothControls = function ( object, domElement ) {
 		}
 			
 		
-		
+		//moves the object to the new location
 		this.object.translateX( this.velocityX );
 		this.object.translateY( this.velocityY );
 		this.object.translateZ( this.velocityZ );
 		
+		//adjust rotation
 		var targetPosition = this.target,
 			position = this.object.position;
 			
 		targetPosition.x = position.x;
-		targetPosition.y = position.y + 100;
+		targetPosition.y = position.y;
 		targetPosition.z = position.z;
 		
-		//this.object.lookAt( targetPosition );
+		this.object.lookAt( targetPosition );
 	}
 	
 	this.domElement.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
