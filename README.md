@@ -17,7 +17,7 @@ After all enemies are destroyed, the player will have the chance to add sections
 
 **TODO**
 
-* ~~Make motion fluid.~~ The fortress should not immediately stop but should slow down until it comes to a halt. It should also not speed up immediately but should begin moving slowly, then increase speed over time. Bigger fortresses are slower unless they've been augmented with engines.
+* ~~Make motion fluid. The fortress should not immediately stop but should slow down until it comes to a halt. It should also not speed up immediately but should begin moving slowly, then increase speed over time.~~ W/S will cause the fortress to ascend/descend, A/D will rotate fortress. Bigger fortresses are slower unless they've been augmented with engines.
 
 * Terrain - [High peaks with low valleys filled with water.](http://www.mobygames.com/images/shots/l/29259-stratosphere-conquest-of-the-skies-windows-screenshot-as-soon.jpg) Sky. Create walls around map the prevent fortress from exiting arena, but walls don't damage fortresses. Mountains damage fortresses after a few seconds of colliding with them.
 

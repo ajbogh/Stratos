@@ -101,11 +101,11 @@ THREE.SmoothControls = function ( object, domElement ) {
 			//increase X velocity
 			this.velocityX += 0.1;
 		}
-		if(typeof this.keyArrayMap["key_82"] != "undefined" && this.keyArrayMap["key_82"] === true){
+		if(typeof this.keyArrayMap["key_87"] != "undefined" && this.keyArrayMap["key_87"] === true){
 			//increase Y velocity
 			this.velocityY += 0.1;
 		}
-		if(typeof this.keyArrayMap["key_70"] != "undefined" && this.keyArrayMap["key_70"] === true){
+		if(typeof this.keyArrayMap["key_83"] != "undefined" && this.keyArrayMap["key_83"] === true){
 			//decrease Y velocity
 			this.velocityY -= 0.1;
 		}
@@ -120,8 +120,8 @@ THREE.SmoothControls = function ( object, domElement ) {
 			if(this.velocityX > 0) this.velocityX -= 0.1;
 			else if(this.velocityX < 0) this.velocityX += 0.1;
 		}
-		if( (typeof this.keyArrayMap["key_82"] == "undefined" || this.keyArrayMap["key_82"] === false) 
-			&& (typeof this.keyArrayMap["key_70"] == "undefined" || this.keyArrayMap["key_70"] === false) ){
+		if( (typeof this.keyArrayMap["key_87"] == "undefined" || this.keyArrayMap["key_87"] === false) 
+			&& (typeof this.keyArrayMap["key_83"] == "undefined" || this.keyArrayMap["key_83"] === false) ){
 			if(this.velocityY > 0) this.velocityY -= 0.1;
 			else if(this.velocityY < 0) this.velocityY += 0.1;
 		}
