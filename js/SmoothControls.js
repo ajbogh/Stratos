@@ -87,11 +87,11 @@ THREE.SmoothControls = function ( object, domElement ) {
 		//max speed is equivalent for all objects
 		if(typeof this.keyArrayMap["key_38"] != "undefined" && this.keyArrayMap["key_38"] === true){
 			//increase Y velocity
-			this.velocityY += 0.1;
+			this.velocityZ -= 0.1;
 		}
 		if(typeof this.keyArrayMap["key_40"] != "undefined" && this.keyArrayMap["key_40"] === true){
 			//decrease Y velocity
-			this.velocityY -= 0.1;
+			this.velocityZ += 0.1;
 		}
 		if(typeof this.keyArrayMap["key_37"] != "undefined" && this.keyArrayMap["key_37"] === true){
 			//decrease X velocity
@@ -103,11 +103,11 @@ THREE.SmoothControls = function ( object, domElement ) {
 		}
 		if(typeof this.keyArrayMap["key_82"] != "undefined" && this.keyArrayMap["key_82"] === true){
 			//increase Z velocity
-			this.velocityZ += 0.1;
+			this.velocityY += 0.1;
 		}
 		if(typeof this.keyArrayMap["key_70"] != "undefined" && this.keyArrayMap["key_70"] === true){
 			//decrease Z velocity
-			this.velocityZ -= 0.1;
+			this.velocityY -= 0.1;
 		}
 		
 		this.object.translateX( this.velocityX );
